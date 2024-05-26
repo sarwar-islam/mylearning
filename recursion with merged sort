@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void Merge(int a[],int small,int mid,int large)
+{
+    int x=small,y=mid+1,temp[100],z=0;
+    while( x<= mid && y <=large)
+    {
+        if(a[x]<a[y])
+        {
+            temp[z]=a[x];
+            z++;
+            x++;
+        }
+        else
+        {
+            temp[z]=a[y];
+            z++;
+            y++;
+        }
+    }
+    while(x<=mid)
+    {
+        temp[z++] = a[x++];
+    }
+    while(y<=large)
+    {
+        temp[z++]=a[y++];
+    }
+    z=0;
+    for(int x=small; x<=large; x++)
+    {
+        a[x]=temp[z];
+        z++;
+    }
+
+
+}
+void divide(int arr[],int small,int large)
+{
+
+    int mid;
+    if(small<large)
+    {
+        mid=(small+large)/2;
+        divide(arr,small,mid);
+        divide(arr,mid+1,large);
+        Merge(arr,small,mid,large);
+    }
+
+}
+
+int main()
+{
+
+    int a[7]= {42,31,5,32,5,74,74};
+    int small=0,large=6;
+
+    divide(a,small,large);
+    for(int i=0; i<7; i++)
+    {
+        cout<<a[i]<<endl;
+    }
+
+}
+
